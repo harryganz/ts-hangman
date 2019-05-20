@@ -4,7 +4,7 @@
   "description": "Hangman game written in typescript",
   "main": "dist/index.js",
   "scripts": {
-    "test": "mocha -r ts-node/register src/**/*.test.js"
+    "test": "mocha -r ts-node/register src/**/*.test.ts"
   },
   "author": "Harry Ganz <hganz@harryganz.com>",
   "license": "MIT",
