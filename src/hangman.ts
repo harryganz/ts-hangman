@@ -26,10 +26,6 @@ export default class Hangman {
         }
         if (letter.length > 1) {
             this.guesses = 0;
-            // If answer is equal to the word, set hasWon to true
-            if (letter.toLowerCase() === this.word.toLowerCase()) {
-                this.hasWon = true;
-            }
         } else {
             if (!this.wordBank.includes(letter)) {
                 if (!this.word.includes(letter)) {
@@ -38,5 +34,13 @@ export default class Hangman {
                 this.wordBank.push(letter);
             } 
         }
+
+        if (letter.toLowerCase() === this.word.toLowerCase() || all(this.word.split(''), (l) => this.wordBank.includes(l))) {
+            this.hasWon = true;
+        }
     }
+}
+
+function all(collection : any[], pred : (val : any) => boolean) : boolean {
+    return collection.reduce((acc, next) => acc && pred(next), true);
 }

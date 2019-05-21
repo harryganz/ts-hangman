@@ -115,9 +115,16 @@ describe('expect Hangman guess function', () => {
         expect(h.guesses).toBe(0);
     });
 
-    it('to set has won to true if correct word is guessed', () => {
+    it('to set hasWon to true if correct word is guessed', () => {
         expect(h.hasWon).toBe(false);
         h.guess(word.toUpperCase());
         expect(h.hasWon).toBe(true);
     });
+
+    it('to set hasWon to true if all letters in word in wordbank', () => {
+        expect(h.hasWon).toBe(false);
+        h.guess('f');
+        h.guess('o');
+        expect(h.hasWon).toBe(true);
+    })
 });
