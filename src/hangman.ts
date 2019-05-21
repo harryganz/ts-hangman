@@ -32,6 +32,8 @@ export default class Hangman {
                     this.guesses--;
                 }
                 this.wordBank.push(letter);
+            } else {
+                throw new Error('already guessed that letter');
             } 
         }
 

@@ -83,18 +83,30 @@ describe('expect Hangman guess function', () => {
         expect(h.guesses).toBe(initialGuesses - 2);
     });
 
-    it('to not decrement guesses if letter was already guessed', () => {
+    it('to not decrement guesses for duplicate wrong guesses', () => {
         const initialGuesses = h.guesses;
-        h.guess('q');
-        h.guess('q');
-        expect(h.guesses).toBe(initialGuesses - 1);
+        try {
+            h.guess('q');
+            expect(h.guesses).toBe(initialGuesses - 1);
+            h.guess('q')
+        } catch (e) {
+        } finally {
+            expect(h.guesses).toBe(initialGuesses - 1);
+        }
+    });
+
+    it('to throw error if letter was already guessed', () => {
+        h.guess('q')
+        expect(() => h.guess('q')).toThrow(/already/);
     });
 
     it('to not add duplicate entries to wordBank for duplicate guesses', () => {
-        h.guess('q');
-        expect(h.wordBank).toEqual(['q']);
-        h.guess('q');
-        expect(h.wordBank).toEqual(['q']);
+        try {
+            h.guess('q');
+            h.guess('q');
+        } catch (e) {
+            expect(h.wordBank).toEqual(['q']);
+        }
     });
 
     it('to throw an error if something other than letters are entered', () => {
