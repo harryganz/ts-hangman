@@ -55,4 +55,80 @@ describe('expect Hangman display function', () => {
             expect(h.display()).toBe(val.expect);
         });
     });
+
+    
 });
+
+describe('expect Hangman guess function', () => {
+    let h : Hangman;
+    const word = 'foo';
+
+    beforeEach(() => {
+        h = new Hangman(word);
+    });
+
+    it('to not decrement guesses when correct guess entered', () => {
+        const initialGuesses = h.guesses;
+        h.guess(word.charAt(0));
+        expect(h.guesses).toBe(initialGuesses);
+        h.guess(word.charAt(1))
+        expect(h.guesses).toBe(initialGuesses);
+    });
+
+    it('to decrement guesses by 1 when incorrect guess is entered', () => {
+        const initialGuesses = h.guesses;
+        h.guess('q');
+        expect(h.guesses).toBe(initialGuesses - 1);
+        h.guess('u');
+        expect(h.guesses).toBe(initialGuesses - 2);
+    });
+
+    it('to not decrement guesses if letter was already guessed', () => {
+        const initialGuesses = h.guesses;
+        h.guess('q');
+        h.guess('q');
+        expect(h.guesses).toBe(initialGuesses - 1);
+    });
+
+    it('to not add duplicate entries to wordBank for duplicate guesses', () => {
+        h.guess('q');
+        expect(h.wordBank).toEqual(['q']);
+        h.guess('q');
+        expect(h.wordBank).toEqual(['q']);
+    });
+
+    it('to throw an error if something other than letters are entered', () => {
+        const cases : string[] = [
+            '1',
+            '.',
+            'a ',
+            ' '
+        ];
+
+        cases.forEach((c) => {
+            expect(() => h.guess(c)).toThrow(/letter/);
+        });
+        
+    });
+
+    it('should set isOver to true if number of incorrect guesses exceeds guesses', () => {
+        expect(h.isOver).toBe(false);
+        h.guess('q');
+        expect(h.isOver).toBe(false);
+        h.guess('u');
+        expect(h.isOver).toBe(false);
+        h.guess('p');
+        expect(h.isOver).toBe(false);
+        h.guess('i');
+        expect(h.isOver).toBe(false);
+        h.guess('c');
+        expect(h.isOver).toBe(true);
+    });
+
+    it('should set isOver to be true if full word is guessed', () => {
+        expect(h.isOver).toBe(false);
+        h.guess('laminate');
+        expect(h.isOver).toBe(true);
+    });
+    
+})

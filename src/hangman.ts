@@ -1,11 +1,17 @@
 
 export default class Hangman {
     private word : string;
-    private wordBank : string[];
+    wordBank : string[];
+    isOver : boolean;
+    hasWon : boolean;
+    guesses : number;
     
     constructor(word : string) {
         this.word = word;
         this.wordBank = [];
+        this.isOver = false;
+        this.hasWon = false;
+        this.guesses = 5;
     }
 
     display() : string {
@@ -16,6 +22,17 @@ export default class Hangman {
     }
 
     guess(letter : string) : void {
-        this.wordBank.push(letter);
+        if (!/^[a-z]+$/i.test(letter)) {
+            throw new Error('must guess a letter or word');
+        }
+        if (!this.wordBank.includes(letter)) {
+            if (!this.word.includes(letter)) {
+                this.guesses--;
+            }
+            this.wordBank.push(letter);
+        } 
+        if (this.guesses < 1) {
+            this.isOver = true;
+        }
     }
 }
