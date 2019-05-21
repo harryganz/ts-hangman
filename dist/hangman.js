@@ -1,25 +1,20 @@
-
-export default class Hangman {
-    private word : string;
-    wordBank : string[];
-    hasWon : boolean;
-    guesses : number;
-    
-    constructor(word : string) {
+"use strict";
+exports.__esModule = true;
+var Hangman = /** @class */ (function () {
+    function Hangman(word) {
         this.word = word;
         this.wordBank = [];
         this.hasWon = false;
         this.guesses = 5;
     }
-
-    display() : string {
+    Hangman.prototype.display = function () {
+        var _this = this;
         return this.word
             .split('')
-            .map(letter => this.wordBank.includes(letter) ? letter : '*')
+            .map(function (letter) { return _this.wordBank.includes(letter) ? letter : '*'; })
             .join('');
-    }
-
-    guess(letter : string) : void {
+    };
+    Hangman.prototype.guess = function (letter) {
         // Check that letter is a letter or word
         if (!/^[a-z]+$/i.test(letter)) {
             throw new Error('must guess a letter or word');
@@ -30,13 +25,16 @@ export default class Hangman {
             if (letter.toLowerCase() === this.word.toLowerCase()) {
                 this.hasWon = true;
             }
-        } else {
+        }
+        else {
             if (!this.wordBank.includes(letter)) {
                 if (!this.word.includes(letter)) {
                     this.guesses--;
                 }
                 this.wordBank.push(letter);
-            } 
+            }
         }
-    }
-}
+    };
+    return Hangman;
+}());
+exports["default"] = Hangman;

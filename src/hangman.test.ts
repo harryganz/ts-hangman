@@ -108,27 +108,16 @@ describe('expect Hangman guess function', () => {
         cases.forEach((c) => {
             expect(() => h.guess(c)).toThrow(/letter/);
         });
-        
     });
 
-    it('should set isOver to true if number of incorrect guesses exceeds guesses', () => {
-        expect(h.isOver).toBe(false);
-        h.guess('q');
-        expect(h.isOver).toBe(false);
-        h.guess('u');
-        expect(h.isOver).toBe(false);
-        h.guess('p');
-        expect(h.isOver).toBe(false);
-        h.guess('i');
-        expect(h.isOver).toBe(false);
-        h.guess('c');
-        expect(h.isOver).toBe(true);
+    it('to set guesses to zero if word guessed', () => {
+        h.guess('foo');
+        expect(h.guesses).toBe(0);
     });
 
-    it('should set isOver to be true if full word is guessed', () => {
-        expect(h.isOver).toBe(false);
-        h.guess('laminate');
-        expect(h.isOver).toBe(true);
+    it('to set has won to true if correct word is guessed', () => {
+        expect(h.hasWon).toBe(false);
+        h.guess(word.toUpperCase());
+        expect(h.hasWon).toBe(true);
     });
-    
-})
+});
