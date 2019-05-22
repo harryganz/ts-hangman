@@ -12,16 +12,17 @@ export class FileDictionary implements Dictionary {
         this.corpus = {};
     }
 
-    loadDictionary(fileName: string) : void {
+    load(fileName: string) : void {
         try {
-            this.corpus = JSON.parse(readFileSync(resolve(__dirname, fileName), { encoding: 'UTF-8' }));
+            this.corpus = JSON.parse(readFileSync(resolve(fileName), { encoding: 'UTF-8' }));
         } catch (e) {
             throw new Error('could not load dictionary file: ' + e);
         }
     }
 
     getWord() : string {
-        let n = this.corpus.length;
-        return this.corpus[Math.floor(Math.random() * n)];
+        let words = Object.keys(this.corpus);
+        let n = words.length;
+        return words[Math.floor(Math.random() * n)];
     }
 }
