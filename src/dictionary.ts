@@ -5,8 +5,12 @@ export interface Dictionary {
     getWord : () => string
 }
 
+export interface Corpus {
+    [ propname : string ]: any
+}
+
 export class FileDictionary implements Dictionary {
-    private corpus : {  [propname : string]: any }
+    private corpus : Corpus 
 
     constructor() {
         this.corpus = {};
@@ -21,8 +25,28 @@ export class FileDictionary implements Dictionary {
     }
 
     getWord() : string {
-        let words = Object.keys(this.corpus);
-        let n = words.length;
-        return words[Math.floor(Math.random() * n)];
+        return randomWord(this.corpus);
     }
+}
+
+export class ObjectDictionary implements Dictionary {
+    private corpus : Corpus
+    
+    constructor() {
+        this.corpus = {};
+    }
+
+    load(corpus : Corpus) {
+        this.corpus = corpus;
+    }
+
+    getWord() : string  {
+        return randomWord(this.corpus);
+    }
+}
+
+function randomWord(corpus : Corpus) {
+    let words = Object.keys(corpus);
+    let n = words.length;
+    return words[Math.floor(Math.random() * n)];
 }
