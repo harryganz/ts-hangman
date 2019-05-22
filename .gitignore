@@ -4,3 +4,6 @@ npm-debug*
 
 # Node Modules
 node_modules/
+
+# Output dir
+dist/
