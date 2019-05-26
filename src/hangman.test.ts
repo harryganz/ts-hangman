@@ -71,8 +71,6 @@ describe('expect Hangman guess function', () => {
         const initialGuesses = h.guesses;
         h.guess(word.charAt(0));
         expect(h.guesses).toBe(initialGuesses);
-        h.guess(word.charAt(1))
-        expect(h.guesses).toBe(initialGuesses);
     });
 
     it('to decrement guesses by 1 when incorrect guess is entered', () => {
@@ -132,6 +130,14 @@ describe('expect Hangman guess function', () => {
         h.guess(word.toUpperCase());
         expect(h.hasWon).toBe(true);
     });
+
+    it('to set guesses to zero if all letters in word in wordbank', () => {
+        let initialGuesses = h.guesses;
+        expect(initialGuesses).toBeGreaterThan(0);
+        h.guess('f');
+        h.guess('o');
+        expect(h.guesses).toBe(0);
+    })
 
     it('to set hasWon to true if all letters in word in wordbank', () => {
         expect(h.hasWon).toBe(false);

@@ -4,7 +4,9 @@
   "description": "Hangman game written in typescript",
   "main": "dist/index.js",
   "scripts": {
-    "test": "mocha -r ts-node/register --watch-extensions ts \"src/**/*.test.ts\""
+    "test": "mocha -r ts-node/register --watch-extensions ts \"src/**/*.test.ts\"",
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/index.js"
   },
   "author": "Harry Ganz <hganz@harryganz.com>",
   "license": "MIT",
@@ -16,5 +18,9 @@
     "mocha": "^6.1.4",
     "ts-node": "^8.1.0",
     "typescript": "^3.4.5"
+  },
+  "dependencies": {
+    "@types/inquirer": "^6.0.3",
+    "inquirer": "^6.3.1"
   }
 }

@@ -24,9 +24,7 @@ export default class Hangman {
         if (!/^[a-z]+$/i.test(letter)) {
             throw new Error('must guess a letter or word');
         }
-        if (letter.length > 1) {
-            this.guesses = 0;
-        } else {
+        if (letter.length === 1) {
             if (!this.wordBank.includes(letter)) {
                 if (!this.word.includes(letter)) {
                     this.guesses--;
@@ -35,11 +33,18 @@ export default class Hangman {
             } else {
                 throw new Error('already guessed that letter');
             } 
+        } else {
+            this.guesses = 0;
         }
 
         if (letter.toLowerCase() === this.word.toLowerCase() || all(this.word.split(''), (l) => this.wordBank.includes(l))) {
+            this.guesses = 0;
             this.hasWon = true;
         }
+    }
+
+    showWord() : string {
+        return this.word;
     }
 }
 
